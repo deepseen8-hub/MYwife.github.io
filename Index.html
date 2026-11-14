@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>a
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Design Tokens — Deep Romantic Red */
+  
         :root {
             --bg-void: #050102;
             --bg-radial: #1c0307;
@@ -37,7 +37,7 @@
             touch-action: none;
         }
 
-        /* Background Volumetric Canvas */
+        
         #particle-canvas {
             position: fixed;
             inset: 0;
@@ -47,8 +47,7 @@
             pointer-events: none;
         }
 
-        /* 3D Perspective Stage */
-        .stage {
+                .stage {
             position: fixed;
             inset: 0;
             z-index: 2;
@@ -59,7 +58,7 @@
             cursor: grabbing;
         }
 
-        /* Bottom Romantic Dedication */
+        
         .dedication-footer {
             position: fixed;
             bottom: clamp(1.75rem, 5vh, 3.25rem);
@@ -109,23 +108,18 @@
 </head>
 <body>
 
-    <!-- Ambient & Volumetric Particle Canvas -->
+    
     <canvas id="particle-canvas"></canvas>
 
-    <!-- Interactive 3D Stage -->
+    
     <main class="stage" id="interaction-stage"></main>
 
-    <!-- Closing Dedication -->
-    <footer class="dedication-footer">
+        <footer class="dedication-footer">
         <div class="dedication-divider"></div>
         <p class="dedication-text">I will always love you no matter what</p>
     </footer>
 
     <script>
-        /**
-         * VolumetricHeartExperience
-         * Ultra-clean, 60fps single-canvas 3D engine rendered in rich crimson red.
-         */
         class VolumetricHeartExperience {
             constructor() {
                 this.canvas = document.getElementById('particle-canvas');
@@ -174,9 +168,6 @@
                 this.animate(this.lastTime);
             }
 
-            /**
-             * Pre-renders radial glow sprites for each shade to ensure smooth 60fps performance
-             */
             buildGlowSprites() {
                 this.spriteCache = {};
                 const size = 64;
@@ -200,9 +191,6 @@
                 });
             }
 
-            /**
-             * Pre-renders the high-DPI glowing "I love you Erjona" typography sprite
-             */
             buildTextSprite() {
                 const scale = this.getHeartScale();
                 const fontSize = Math.max(12, Math.round(scale * 0.85));
@@ -242,26 +230,16 @@
                 };
             }
 
-            /**
-             * Parametric heart curve equation
-             */
             getHeartPoint(t) {
                 const x = 16 * Math.pow(Math.sin(t), 3);
                 const y = -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
                 return { x, y };
             }
 
-            /**
-             * Responsive heart scale based on viewport size
-             */
             getHeartScale() {
                 const minDim = Math.min(this.state.width, this.state.height);
                 return Math.max(9.5, Math.min(18.5, minDim * 0.022));
             }
-
-            /**
-             * Builds a 3-layer 3D sculptural lattice with wide Z-spacing for razor-sharp legibility
-             */
             buildTypographyLattice() {
                 this.textNodes = [];
 
@@ -285,9 +263,6 @@
                 });
             }
 
-            /**
-             * Creates a subtle luminous red micro-sparkle anchored near the 3D heart volume
-             */
             createHeartParticle(randomLife = false) {
                 const pal = this.palette;
                 const scale = this.getHeartScale();
@@ -312,9 +287,6 @@
                 };
             }
 
-            /**
-             * Creates subtle background red stardust particles drifting upward
-             */
             createStardustParticle(randomY = false) {
                 const pal = this.palette;
                 const maxLife = 260 + Math.random() * 200;
@@ -331,9 +303,6 @@
                 };
             }
 
-            /**
-             * Initializes Volumetric Heart Aura & Ambient Stardust Particles
-             */
             initParticles() {
                 this.heartParticles = [];
                 this.stardustParticles = [];
@@ -347,9 +316,6 @@
                 }
             }
 
-            /**
-             * Projects a 3D point (x, y, z) through the current camera Euler angles
-             */
             project3DPoint(x, y, z, pulseScale) {
                 const sx = x * pulseScale;
                 const sy = y * pulseScale;
@@ -377,9 +343,6 @@
                 };
             }
 
-            /**
-             * Draws the volumetric red energy reflection pool beneath the floating heart
-             */
             drawVolumetricPedestal(pulseScale) {
                 const pal = this.palette;
                 const scale = this.getHeartScale();
@@ -404,9 +367,6 @@
                 this.ctx.restore();
             }
 
-            /**
-             * Draws a softly breathing 'E' monogram watermark at the core of the heart
-             */
             drawCoreMonogram(pulseScale) {
                 const proj = this.project3DPoint(0, -14, 0, pulseScale);
                 const scale = this.getHeartScale();
@@ -426,9 +386,6 @@
                 this.ctx.restore();
             }
 
-            /**
-             * Binds pointer drag-to-orbit physics, subtle cursor parallax, and resize handling
-             */
             bindEvents() {
                 const onPointerDown = (e) => {
                     this.state.isDragging = true;
@@ -439,8 +396,6 @@
 
                 const onPointerMove = (e) => {
                     const pt = e.touches ? e.touches[0] : e;
-
-                    // Update normalized cursor parallax (-1 to +1)
                     const nx = (pt.clientX / Math.max(1, this.state.width)) * 2 - 1;
                     const ny = (pt.clientY / Math.max(1, this.state.height)) * 2 - 1;
                     this.state.targetParallaxX = nx * 9;
@@ -503,11 +458,11 @@
                 const dt = Math.min((now - this.lastTime) / 1000, 0.05) || 0.016;
                 this.lastTime = now;
 
-                // Smoothly ease cursor parallax
+                
                 this.state.parallaxX += (this.state.targetParallaxX - this.state.parallaxX) * 0.06;
                 this.state.parallaxY += (this.state.targetParallaxY - this.state.parallaxY) * 0.06;
 
-                // 1. Smooth Camera Rotation, Parallax & Inertia
+                
                 if (!this.state.isDragging) {
                     this.state.velY += (0.28 - this.state.velY) * 0.03;
                     this.state.velX *= 0.92;
@@ -517,19 +472,19 @@
                     this.state.rotX += (targetTilt - this.state.rotX) * 0.035 + this.state.velX;
                 }
 
-                // Subtle cardiac double-beat rhythm
+                
                 const beatCycle = (now * 0.0023) % (Math.PI * 2);
                 const pulseScale = 1 + Math.pow(Math.sin(beatCycle), 4) * 0.038;
 
-                // Advance parametric flow along the heart contour
+                
                 this.state.flowPhase += dt * 0.16;
 
-                // 2. Clear Canvas, Draw Volumetric Pedestal & Core Monogram
+                
                 this.ctx.clearRect(0, 0, this.state.width, this.state.height);
                 this.drawVolumetricPedestal(pulseScale);
                 this.drawCoreMonogram(pulseScale);
 
-                // 3. Render Subtle Ambient Stardust
+
                 this.ctx.globalCompositeOperation = 'lighter';
                 for (let i = 0; i < this.stardustParticles.length; i++) {
                     const p = this.stardustParticles[i];
@@ -554,7 +509,7 @@
                     }
                 }
 
-                // 4. Project All 166 Typography Labels & 110 Micro-Sparkles in True 3D Space
+                
                 const scale = this.getHeartScale();
                 const renderQueue = [];
 
@@ -610,10 +565,12 @@
                     });
                 }
 
-                // Painter's Algorithm: Sort back-to-front by Z-depth
+                
+                
                 renderQueue.sort((a, b) => a.proj.z - b.proj.z);
 
-                // 5. Draw Depth-Sorted 3D Scene
+                
+                
                 const spriteW = this.textSprite.logicalW;
                 const spriteH = this.textSprite.logicalH;
                 const spriteCanvas = this.textSprite.canvas;
@@ -652,8 +609,8 @@
             }
         }
 
-        // Boot application once DOM is ready
-        window.addEventListener('DOMContentLoaded', () => {
+        
+          window.addEventListener('DOMContentLoaded', () => {
             new VolumetricHeartExperience();
         });
     </script>
